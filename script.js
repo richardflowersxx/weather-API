@@ -16,7 +16,7 @@ var units = '&units=imperial'
 function getWeather(city){
     
     var url = api + city + apiKey + units
-    // var coordinatates = []
+    
     fetch(url)
         .then(function (response){
             return response.json();
@@ -49,17 +49,17 @@ function getUV(lat,lon)
             console.log(data)
             var uvi = data.current.uvi
             if(uvi > 10){
-                uvIndex.className="bg-dark"
+                uvIndex.className="bg-dark col-2"
             }else if ( uvi > 7){
-                uvIndex.className="bg-danger"
+                uvIndex.className="bg-danger col-2"
             }else if(uvIndex > 5){
-                uvIndex.className="bg-warning"
+                uvIndex.className="bg-warning col-2"
             }else if(uvIndex > 2){
-                uvIndex.className="bg-info"
+                uvIndex.className="bg-info col-2"
             }else{
-                uvIndex.className="bg-success"
+                uvIndex.className="bg-success col-2"
             }
-            uvIndex.textContent = "uvindex: " + data.current.uvi
+            uvIndex.textContent = "UV index: " + data.current.uvi
         })
 }
 
@@ -69,7 +69,7 @@ function getUV(lat,lon)
 
 function fiveDay (city){
  var url = forecastAPI + city + apiKey + units
-    // var coordinatates = []
+
     fetch(url)
         .then(function (response){
             return response.json();
@@ -81,19 +81,14 @@ function fiveDay (city){
             for (let i = 0; i < fiveDayData.length; i=i+8){
                 htmlCode+= `<div class="container">
                 <p>${fiveDayData[i].dt_txt}</p>
-                <h6>Temp:${fiveDayData[i].main.temp}</h6>
                 <span> <img src= "https://openweathermap.org/img/wn/${fiveDayData[i].weather[0].icon}@2x.png"></span>
+                <h6>Temp:${fiveDayData[i].main.temp}</h6>
                 <h6> humidity: ${fiveDayData[i].main.humidity}</h6>
                 <h6> wind speed: ${fiveDayData[i].wind.speed}</h6>
                 </div>`
             }
             fiveDayContainer.innerHTML = htmlCode
-            // tempEl.textContent = "Temperature: " + data.main.temp;
-            // humidity.textContent = "Humidity: " + data.main.humidity;
-            // wind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
-            // // coordinatates = data.coord
-            // cityName.textContent = $("#city").val(); 
-            // console.log(coordinatates);
+            
     });
 }
 
@@ -104,10 +99,3 @@ $("#searchBtn").on("click",function(){
     console.log(cityInput)
 });
 
-// // getWeather ().then(function(data){
-//             coordinatates.push({
-//                 lat: data.coord.lat,
-//                 lon: data.coord.lon,
-//             });
-
-//         })
